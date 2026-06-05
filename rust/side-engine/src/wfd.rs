@@ -2,6 +2,7 @@ use std::collections::HashMap;
 use std::sync::Once;
 
 use rand::prelude::*;
+use rand::RngExt;
 use rayon::prelude::*;
 use serde::Deserialize;
 use serde_json::Value;
