@@ -20,12 +20,12 @@ anyhow = "1"
 chrono = { version = "0.4", features = ["serde"] }
 axum = "0.8"
 tower-http = { version = "0.6", features = ["trace"] }
-arrow = "54"
-parquet = { version = "54", features = ["async"] }
+arrow = "58"
+parquet = { version = "58", features = ["async"] }
 
 [dev-dependencies]
 tempfile = "3"
-reqwest = { version = "0.12", features = ["json"] }
+reqwest = { version = "0.12", default-features = false, features = ["rustls-tls", "json"] }
 futures = "0.3"
 
 [[bench]]
