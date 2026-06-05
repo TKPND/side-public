@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  pull_request:
+    branches: ["main"]
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  python-contract-tests:
+    name: Python contract tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6.0.3
+
+      - name: Set up Python
+        uses: actions/setup-python@v6.2.0
+        with:
+          python-version-file: ".python-version"
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v8.2.0
+        with:
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+
+      - name: Verify uv lockfile
+        run: uv lock --locked
+
+      - name: Run contract test suite
+        run: uv run --locked pytest -q tests/test_validate_risk_contract.py
+
+  rust-check:
+    name: Rust check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6.0.3
+
+      - name: Install Rust toolchain
+        run: |
+          rustup toolchain install \
+            --profile minimal \
+            --component rustfmt,clippy
+
+      - name: Check workspace
+        run: cargo check --locked --workspace
