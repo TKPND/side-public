@@ -1,0 +1,97 @@
+{
+  "schema_version": "risk_contract_fixture_matrix.v2",
+  "contract_schema": "risk/contracts/v2/risk_contract_v2.schema.json",
+  "fixtures": [
+    {
+      "id": "base_valid",
+      "path": "risk/contracts/v2/fixtures/valid/base_valid.json",
+      "valid": true,
+      "expected_error": null,
+      "description": "Minimal complete v2 validator-accepted risk contract fixture; no runtime adoption implied."
+    },
+    {
+      "id": "scan_metadata_valid",
+      "path": "risk/contracts/v2/fixtures/valid/scan_metadata_valid.json",
+      "valid": true,
+      "expected_error": null,
+      "description": "Valid scan fixture that keeps runtime_surface separate from WFD/statistical analysis scope and marks metrics as metadata-only."
+    },
+    {
+      "id": "live_not_claimable_valid",
+      "path": "risk/contracts/v2/fixtures/valid/live_not_claimable_valid.json",
+      "valid": true,
+      "expected_error": null,
+      "description": "Valid live fixture that records live as not wired / not claimable without adding runtime adoption."
+    },
+    {
+      "id": "paper_cap_applied_valid",
+      "path": "risk/contracts/v2/fixtures/valid/paper_cap_applied_valid.json",
+      "valid": true,
+      "expected_error": null,
+      "description": "Valid paper fixture that uses the v2 paper slot allocation sizing basis for an applied cap validator boundary."
+    },
+    {
+      "id": "invalid_fail_close_reason",
+      "path": "risk/contracts/v2/fixtures/invalid/invalid_fail_close_reason.json",
+      "valid": false,
+      "expected_error": "invalid_fail_close_reason",
+      "description": "Invalid fixture retaining the v1 non-fail sentinel that v2 replaces with not_fail_closed."
+    },
+    {
+      "id": "invalid_runtime_surface_scope",
+      "path": "risk/contracts/v2/fixtures/invalid/invalid_runtime_surface_scope.json",
+      "valid": false,
+      "expected_error": "invalid_runtime_surface_scope",
+      "description": "Invalid fixture that puts WFD/statistical output into runtime_surface instead of analysis_scope."
+    },
+    {
+      "id": "invalid_scan_sizing_basis",
+      "path": "risk/contracts/v2/fixtures/invalid/invalid_scan_sizing_basis.json",
+      "valid": false,
+      "expected_error": "invalid_surface_candidate_envelope",
+      "description": "Invalid fixture that uses a backtest sizing basis on a scan runtime surface."
+    },
+    {
+      "id": "invalid_paper_sizing_basis",
+      "path": "risk/contracts/v2/fixtures/invalid/invalid_paper_sizing_basis.json",
+      "valid": false,
+      "expected_error": "invalid_surface_candidate_envelope",
+      "description": "Invalid fixture that uses a backtest sizing basis on a paper runtime surface."
+    },
+    {
+      "id": "missing_required_application_block",
+      "path": "risk/contracts/v2/fixtures/invalid/missing_required_application_block.json",
+      "valid": false,
+      "expected_error": "missing_required_block_or_field",
+      "description": "Invalid fixture missing the required v2 application block."
+    },
+    {
+      "id": "live_order_notional_claimable_valid",
+      "path": "risk/contracts/v2/fixtures/valid/live_order_notional_claimable_valid.json",
+      "valid": true,
+      "expected_error": null,
+      "description": "Valid guarded live order-notional fixture with sanitized account, market, order-intent, kill-switch, and idempotency proof; no live runtime or broker mutation is approved."
+    },
+    {
+      "id": "invalid_live_sizing_basis",
+      "path": "risk/contracts/v2/fixtures/invalid/invalid_live_sizing_basis.json",
+      "valid": false,
+      "expected_error": "invalid_live_contract_proof",
+      "description": "Invalid guarded live fixture that uses a non-live sizing basis."
+    },
+    {
+      "id": "invalid_live_missing_account_proof",
+      "path": "risk/contracts/v2/fixtures/invalid/invalid_live_missing_account_proof.json",
+      "valid": false,
+      "expected_error": "invalid_live_contract_proof",
+      "description": "Invalid guarded live fixture missing account_proof."
+    },
+    {
+      "id": "invalid_live_unsafe_secret_field",
+      "path": "risk/contracts/v2/fixtures/invalid/invalid_live_unsafe_secret_field.json",
+      "valid": false,
+      "expected_error": "invalid_live_contract_proof",
+      "description": "Invalid guarded live fixture with a forbidden raw account key inside the live proof payload."
+    }
+  ]
+}

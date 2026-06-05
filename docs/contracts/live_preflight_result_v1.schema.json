@@ -1,0 +1,427 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "side.live_preflight.result.v1",
+  "title": "Side Live Preflight Result v1",
+  "description": "Standalone public schema for side.live_preflight.result.v1 no-order preflight artifacts. Runtime generation, broker, account-fetcher, credential, and network behavior remain out of scope.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "artifact_kind",
+    "execution_mode",
+    "result",
+    "risk_gate",
+    "live_preflight",
+    "emission"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "side.live_preflight.result.v1"
+    },
+    "artifact_kind": {
+      "const": "live_preflight_result"
+    },
+    "execution_mode": {
+      "const": "no_order_preflight"
+    },
+    "result": {
+      "$ref": "#/$defs/result"
+    },
+    "risk_gate": {
+      "$ref": "#/$defs/risk_gate"
+    },
+    "live_preflight": {
+      "$ref": "#/$defs/live_preflight"
+    },
+    "emission": {
+      "$ref": "#/$defs/emission"
+    }
+  },
+  "$defs": {
+    "non_empty_string": {
+      "type": "string",
+      "minLength": 1
+    },
+    "timestamp": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$"
+    },
+    "non_negative_number": {
+      "type": "number",
+      "minimum": 0
+    },
+    "non_negative_integer": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "failure_class",
+        "failure_reason",
+        "terminal_gate"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "passed",
+            "risk_stopped",
+            "failed"
+          ]
+        },
+        "failure_class": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            null,
+            "risk_decision",
+            "stale_proof",
+            "duplicate_idempotency",
+            "unsafe_material",
+            "mutation_attempt",
+            "protected_output_root",
+            "infrastructure"
+          ]
+        },
+        "failure_reason": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            null,
+            "broker_risk_block",
+            "kill_switch_active",
+            "risk_validator_rejected",
+            "account_proof_stale",
+            "market_proof_stale",
+            "idempotency_replay_detected",
+            "raw_secret_or_private_identifier",
+            "order_mutation_attempted",
+            "broker_mutation_attempted",
+            "protected_output_root_denied",
+            "preflight_dependency_unavailable"
+          ]
+        },
+        "terminal_gate": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            null,
+            "protected_output_root",
+            "credential_hygiene",
+            "account_proof",
+            "market_proof",
+            "idempotency",
+            "risk_validator",
+            "risk_decision",
+            "no_order_assertion",
+            "preflight_dependency"
+          ]
+        }
+      }
+    },
+    "risk_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "contract_version",
+        "validator_result_schema_version",
+        "schema_ref",
+        "validated_schema_ref",
+        "validator"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "risk_contract.v2"
+        },
+        "contract_version": {
+          "const": "v2"
+        },
+        "validator_result_schema_version": {
+          "const": "risk_contract_validator_result.v2"
+        },
+        "schema_ref": {
+          "const": "risk/contracts/v2/risk_contract_v2.schema.json"
+        },
+        "validated_schema_ref": {
+          "const": "risk/contracts/v2/risk_contract_v2.schema.json"
+        },
+        "validator": {
+          "const": "scripts/validate_risk_contract.py"
+        }
+      }
+    },
+    "live_preflight": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "order_mutation_allowed",
+        "order_mutation_attempted",
+        "broker_mutation_attempted",
+        "account_proof",
+        "market_proof",
+        "order_intent",
+        "kill_switch_proof",
+        "idempotency_proof"
+      ],
+      "properties": {
+        "order_mutation_allowed": {
+          "type": "boolean",
+          "const": false
+        },
+        "order_mutation_attempted": {
+          "type": "boolean",
+          "const": false
+        },
+        "broker_mutation_attempted": {
+          "type": "boolean",
+          "const": false
+        },
+        "account_proof": {
+          "$ref": "#/$defs/account_proof"
+        },
+        "market_proof": {
+          "$ref": "#/$defs/market_proof"
+        },
+        "order_intent": {
+          "$ref": "#/$defs/order_intent"
+        },
+        "kill_switch_proof": {
+          "$ref": "#/$defs/kill_switch_proof"
+        },
+        "idempotency_proof": {
+          "$ref": "#/$defs/idempotency_proof"
+        }
+      }
+    },
+    "account_proof": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "account_alias": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "broker_alias": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "account_snapshot_ref": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "snapshot_ts": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "snapshot_max_age_ms": {
+          "$ref": "#/$defs/non_negative_integer"
+        },
+        "base_currency": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "equity_ref": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "cash_available_ref": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "buying_power_ref": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "open_exposure_digest": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "open_orders_digest": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "staleness_ref": {
+          "$ref": "#/$defs/non_empty_string"
+        }
+      }
+    },
+    "market_proof": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "symbol": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "market_snapshot_ref": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "market_ts": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "market_max_age_ms": {
+          "$ref": "#/$defs/non_negative_integer"
+        },
+        "price_ref": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "spread_bps": {
+          "$ref": "#/$defs/non_negative_number"
+        },
+        "price_source_alias": {
+          "$ref": "#/$defs/non_empty_string"
+        }
+      }
+    },
+    "order_intent": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "side": {
+          "type": "string",
+          "enum": [
+            "buy",
+            "sell"
+          ]
+        },
+        "order_type": {
+          "type": "string",
+          "enum": [
+            "limit",
+            "market"
+          ]
+        },
+        "time_in_force": {
+          "type": "string",
+          "enum": [
+            "IOC",
+            "FOK",
+            "DAY",
+            "GTC"
+          ]
+        },
+        "requested_notional": {
+          "$ref": "#/$defs/non_negative_number"
+        },
+        "allowed_notional": {
+          "$ref": "#/$defs/non_negative_number"
+        },
+        "notional_currency": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "notional_source": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "price_bounds_ref": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "max_slippage_bps": {
+          "$ref": "#/$defs/non_negative_number"
+        },
+        "idempotency_key_hash": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "order_mutation_allowed": {
+          "type": "boolean",
+          "const": false
+        }
+      }
+    },
+    "kill_switch_proof": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "global_gate_status": {
+          "type": "string",
+          "enum": [
+            "passed",
+            "stopped"
+          ]
+        },
+        "global_gate_ref": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "strategy_gate_status": {
+          "type": "string",
+          "enum": [
+            "passed",
+            "stopped"
+          ]
+        },
+        "strategy_gate_ref": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "symbol_gate_status": {
+          "type": "string",
+          "enum": [
+            "passed",
+            "stopped"
+          ]
+        },
+        "symbol_gate_ref": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "broker_account_gate_status": {
+          "type": "string",
+          "enum": [
+            "passed",
+            "stopped"
+          ]
+        },
+        "broker_account_gate_ref": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "proof_ts": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "proof_max_age_ms": {
+          "$ref": "#/$defs/non_negative_integer"
+        }
+      }
+    },
+    "idempotency_proof": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "candidate_identity_digest": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "idempotency_key_hash": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "duplicate_check_status": {
+          "type": "string",
+          "enum": [
+            "passed",
+            "duplicate_detected"
+          ]
+        },
+        "duplicate_check_ref": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "proof_ts": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "proof_max_age_ms": {
+          "$ref": "#/$defs/non_negative_integer"
+        }
+      }
+    },
+    "emission": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "persisted",
+        "protected_output_root"
+      ],
+      "properties": {
+        "persisted": {
+          "type": "boolean"
+        },
+        "protected_output_root": {
+          "type": "boolean",
+          "const": false
+        }
+      }
+    }
+  }
+}

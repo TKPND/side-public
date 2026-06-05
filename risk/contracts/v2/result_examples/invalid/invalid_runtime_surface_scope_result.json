@@ -1,0 +1,25 @@
+{
+  "schema_version": "risk_contract_validator_result.v2",
+  "checked_path": "risk/contracts/v2/fixtures/invalid/invalid_runtime_surface_scope.json",
+  "valid": false,
+  "contract_identity": {
+    "schema_version": "risk_contract.v2",
+    "contract_version": "v2"
+  },
+  "validated_schema": {
+    "schema_version": "risk_contract.v2",
+    "contract_version": "v2",
+    "path": "risk/contracts/v2/risk_contract_v2.schema.json"
+  },
+  "dispatch": {
+    "status": "validation_failed",
+    "reason": "invalid_runtime_surface_scope"
+  },
+  "errors": [
+    {
+      "code": "invalid_runtime_surface_scope",
+      "path": "candidate.surface.runtime_surface",
+      "message": "candidate.surface.runtime_surface must be one of: backtest, live, paper, scan"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+[global]
+data_dir = "data/mirror"
+interval_minutes = 60
+backfill_days = 840  # 2024-01 ~ 2026-04
+
+[[pairs]]
+symbol = "USDJPY"
+timeframes = ["1h", "4h", "1d"]
+
+[[pairs]]
+symbol = "EURUSD"
+timeframes = ["1m", "1h", "4h", "1d"]
+
+[[pairs]]
+symbol = "XAUUSD"
+timeframes = ["1m", "1h", "4h", "1d"]
+
+[[pairs]]
+symbol = "GBPJPY"
+timeframes = ["1m", "1h", "4h", "1d"]
+
+[[pairs]]
+symbol = "AUDUSD"
+timeframes = ["1m", "1h", "4h", "1d"]

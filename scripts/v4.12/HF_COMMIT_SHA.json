@@ -1,0 +1,11 @@
+{
+  "finbert": {
+    "repo_id": "ProsusAI/finbert",
+    "sha": "4556d13015211d73dccd3fdd39d39232506f3e43"
+  },
+  "resolved_at": "2026-04-25T22:25:09.727576+00:00",
+  "roberta": {
+    "repo_id": "cardiffnlp/twitter-roberta-base-sentiment-latest",
+    "sha": "3216a57f2a0d9c45a2e6c20157c20c49fb4bf9c7"
+  }
+}

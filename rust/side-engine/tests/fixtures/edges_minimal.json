@@ -1,0 +1,13 @@
+[
+  {
+    "entry_minute": 0,
+    "direction": "long",
+    "hold_h_candidates": [1],
+    "t_stat": 4.52,
+    "bh_q": 0.018,
+    "dsr_p": null,
+    "source_query": "smoke",
+    "asset": "USDJPY",
+    "timeframe": "1h"
+  }
+]

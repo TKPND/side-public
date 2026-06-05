@@ -1,0 +1,155 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "risk_contract_validator_result_v2.schema.json",
+  "title": "Side Risk Contract Validator Result v2",
+  "description": "Side risk contract validator result v2 schema shape. Makes contract identity, selected schema, dispatch status, and deterministic errors explicit for exact v2 validation. Validator acceptance boundary only; runtime acceptance remains out of scope.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "checked_path",
+    "valid",
+    "contract_identity",
+    "validated_schema",
+    "dispatch",
+    "errors"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "risk_contract_validator_result.v2"
+    },
+    "checked_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "valid": {
+      "type": "boolean"
+    },
+    "contract_identity": {
+      "$ref": "#/$defs/contract_identity"
+    },
+    "validated_schema": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/validated_schema"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "dispatch": {
+      "$ref": "#/$defs/dispatch"
+    },
+    "errors": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/error"
+      }
+    }
+  },
+  "$defs": {
+    "contract_identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "contract_version"
+      ],
+      "properties": {
+        "schema_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "contract_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "validated_schema": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "contract_version",
+        "path"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "risk_contract.v2"
+        },
+        "contract_version": {
+          "const": "v2"
+        },
+        "path": {
+          "const": "risk/contracts/v2/risk_contract_v2.schema.json"
+        }
+      }
+    },
+    "dispatch": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "reason"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "validated",
+            "validation_failed",
+            "unsupported_contract_version",
+            "missing_contract_identity"
+          ]
+        },
+        "reason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "validator_error_code": {
+      "type": "string",
+      "enum": [
+        "unsupported_contract_version",
+        "missing_contract_identity",
+        "missing_required_block_or_field",
+        "invalid_decision_class",
+        "invalid_fail_close_reason",
+        "decision_trace_mismatch",
+        "invalid_runtime_surface_scope",
+        "invalid_surface_candidate_envelope",
+        "invalid_live_contract_proof"
+      ]
+    },
+    "error": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "path",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/validator_error_code"
+        },
+        "path": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

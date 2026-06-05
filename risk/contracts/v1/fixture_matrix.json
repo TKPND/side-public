@@ -1,0 +1,41 @@
+{
+  "schema_version": "risk_contract_fixture_matrix.v1",
+  "contract_schema": "risk/contracts/v1/risk_contract_v1.schema.json",
+  "fixtures": [
+    {
+      "id": "decision_trace_mismatch",
+      "path": "risk/contracts/v1/fixtures/invalid/decision_trace_mismatch.json",
+      "valid": false,
+      "expected_error": "decision_trace_mismatch",
+      "description": "Invalid fixture where decision.decision_class and trace.decision_class disagree while both values remain in the v1 enum."
+    },
+    {
+      "id": "invalid_decision_class",
+      "path": "risk/contracts/v1/fixtures/invalid/invalid_decision_class.json",
+      "valid": false,
+      "expected_error": "invalid_decision_class",
+      "description": "Invalid fixture where decision and trace use a decision_class outside the v1 enum."
+    },
+    {
+      "id": "invalid_fail_close_reason",
+      "path": "risk/contracts/v1/fixtures/invalid/invalid_fail_close_reason.json",
+      "valid": false,
+      "expected_error": "invalid_fail_close_reason",
+      "description": "Invalid fixture where decision.fail_close_reason is outside the v1 fail-close reason vocabulary."
+    },
+    {
+      "id": "missing_required_block_or_field",
+      "path": "risk/contracts/v1/fixtures/invalid/missing_required_block_or_field.json",
+      "valid": false,
+      "expected_error": "missing_required_block_or_field",
+      "description": "Invalid fixture missing the required top-level policy block."
+    },
+    {
+      "id": "base_valid",
+      "path": "risk/contracts/v1/fixtures/valid/base_valid.json",
+      "valid": true,
+      "expected_error": null,
+      "description": "Minimal complete valid risk contract fixture for Phase 127 validator baselines."
+    }
+  ]
+}

@@ -1,0 +1,166 @@
+{
+  "ema_atr": {
+    "params": {
+      "short_ema": { "type": "int", "low": 5, "high": 50 },
+      "long_ema": { "type": "int", "low": 10, "high": 200 },
+      "atr_period": { "type": "int", "low": 7, "high": 30 },
+      "atr_multiplier": { "type": "float", "low": 0.3, "high": 2.0 }
+    },
+    "constraints": [
+      { "type": "greater_than", "target": "long_ema", "source": "short_ema", "offset": 5 }
+    ]
+  },
+  "sma_cross": {
+    "params": {
+      "short_window": { "type": "int", "low": 5, "high": 50 },
+      "long_window": { "type": "int", "low": 15, "high": 200 }
+    },
+    "constraints": [
+      { "type": "greater_than", "target": "long_window", "source": "short_window", "offset": 10 }
+    ]
+  },
+  "rsi_reversal": {
+    "params": {
+      "period": { "type": "int", "low": 5, "high": 30 },
+      "oversold": { "type": "int", "low": 15, "high": 40 },
+      "overbought": { "type": "int", "low": 35, "high": 85 }
+    },
+    "constraints": [
+      { "type": "greater_than", "target": "overbought", "source": "oversold", "offset": 20 }
+    ]
+  },
+  "donchian_breakout": {
+    "params": {
+      "entry_period": { "type": "int", "low": 10, "high": 50 },
+      "exit_period": { "type": "int", "low": 5, "high": 49 }
+    },
+    "constraints": [
+      { "type": "greater_than", "target": "entry_period", "source": "exit_period", "offset": 1 }
+    ]
+  },
+  "bb_pctb": {
+    "params": {
+      "period": { "type": "int", "low": 10, "high": 40 },
+      "std_dev": { "type": "float", "low": 1.0, "high": 3.0 },
+      "oversold": { "type": "float", "low": -0.2, "high": 0.3 },
+      "overbought": { "type": "float", "low": 0.1, "high": 1.2 }
+    },
+    "constraints": [
+      { "type": "greater_than", "target": "overbought", "source": "oversold", "offset": 0.3 }
+    ]
+  },
+  "bb_squeeze": {
+    "params": {
+      "period": { "type": "int", "low": 10, "high": 40 },
+      "std_dev": { "type": "float", "low": 1.0, "high": 3.0 },
+      "squeeze_lookback": { "type": "int", "low": 60, "high": 240 },
+      "squeeze_percentile": { "type": "float", "low": 5.0, "high": 40.0 }
+    }
+  },
+  "macd_hist": {
+    "params": {
+      "fast_period": { "type": "int", "low": 6, "high": 20 },
+      "slow_period": { "type": "int", "low": 11, "high": 50 },
+      "signal_period": { "type": "int", "low": 5, "high": 15 }
+    },
+    "constraints": [
+      { "type": "greater_than", "target": "slow_period", "source": "fast_period", "offset": 5 }
+    ]
+  },
+  "dual_momentum": {
+    "params": {
+      "roc_period": { "type": "int", "low": 5, "high": 60 },
+      "threshold": { "type": "float", "low": 0.5, "high": 5.0 }
+    }
+  },
+  "momentum_roc": {
+    "params": {
+      "roc_period": { "type": "int", "low": 5, "high": 120 },
+      "threshold": { "type": "float", "low": 0.005, "high": 0.10 }
+    }
+  },
+  "seasonal_filter": {
+    "params": {
+      "start_month": { "type": "int", "low": 1, "high": 12 },
+      "window_size": { "type": "int", "low": 3, "high": 9 },
+      "entry_offset": { "type": "int", "low": -5, "high": 5 }
+    },
+    "computed_months": {
+      "start_month": "start_month",
+      "window_size": "window_size",
+      "target": "active_months"
+    }
+  },
+  "vol_breakout": {
+    "params": {
+      "channel_period": { "type": "int", "low": 10, "high": 60 },
+      "multiplier": { "type": "float", "low": 0.5, "high": 4.0 },
+      "vol_type": { "type": "categorical", "choices": ["atr", "std", "parkinson"] }
+    }
+  },
+  "keltner": {
+    "params": {
+      "ema_period": { "type": "int", "low": 10, "high": 50 },
+      "atr_period": { "type": "int", "low": 7, "high": 30 },
+      "atr_multiplier": { "type": "float", "low": 1.0, "high": 4.0 }
+    }
+  },
+  "dxy_mean_reversion": {
+    "params": {
+      "lookback": { "type": "int", "low": 10, "high": 60 },
+      "z_entry": { "type": "float", "low": 1.0, "high": 3.0, "step": 0.25 },
+      "z_exit": { "type": "float", "low": 0.0, "high": 1.0, "step": 0.25 },
+      "use_rsi_filter": { "type": "categorical", "choices": [true, false] },
+      "rsi_period": { "type": "int", "low": 7, "high": 21 },
+      "rsi_threshold": { "type": "float", "low": 60.0, "high": 80.0, "step": 5.0 },
+      "invert_aux": { "type": "categorical", "choices": [true, false] }
+    }
+  },
+  "cross_asset_fx": {
+    "params": {
+      "fast_lookback": { "type": "int", "low": 5, "high": 20 },
+      "slow_lookback": { "type": "int", "low": 20, "high": 80 },
+      "z_entry": { "type": "float", "low": 1.0, "high": 3.0, "step": 0.25 },
+      "z_exit": { "type": "float", "low": 0.0, "high": 1.0, "step": 0.25 },
+      "vol_lookback": { "type": "int", "low": 10, "high": 40 },
+      "vol_regime_mult": { "type": "float", "low": 1.0, "high": 2.5, "step": 0.25 },
+      "trade_in_high_vol": { "type": "categorical", "choices": [true, false] },
+      "invert_aux": { "type": "categorical", "choices": [true, false] }
+    }
+  },
+  "session_momentum": {
+    "params": {
+      "active_session": { "type": "categorical", "choices": ["asian", "london", "overlap", "ny_late"] },
+      "trend_ema": { "type": "int", "low": 10, "high": 50 },
+      "use_trend_filter": { "type": "categorical", "choices": [true, false] },
+      "avoid_nfp_week": { "type": "categorical", "choices": [true, false] }
+    },
+    "session_mapping": {
+      "source": "active_session",
+      "target_start": "entry_hour_start",
+      "target_end": "entry_hour_end",
+      "map": {
+        "asian": [0, 8],
+        "london": [8, 13],
+        "overlap": [13, 17],
+        "ny_late": [17, 22]
+      }
+    }
+  },
+  "month_end_jpy": {
+    "params": {
+      "month_end_window": { "type": "int", "low": 1, "high": 5 },
+      "month_start_window": { "type": "int", "low": 1, "high": 5 },
+      "use_dow_filter": { "type": "categorical", "choices": [true, false] },
+      "best_dow": { "type": "int", "low": 0, "high": 4 },
+      "trend_ema": { "type": "int", "low": 10, "high": 50 },
+      "use_trend_filter": { "type": "categorical", "choices": [true, false] }
+    }
+  },
+  "time_of_day_drift": {
+    "params": {
+      "cluster": { "type": "categorical", "choices": ["london_open", "ny_close", "tokyo_fix", "all"] },
+      "hold_bars": { "type": "categorical", "choices": [1, 5, 10, 20, 30, 40, 60, 80, 90, 120, 180, 240] }
+    }
+  }
+}

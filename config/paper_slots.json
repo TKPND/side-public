@@ -1,0 +1,44 @@
+{
+  "slots": [
+    {
+      "asset": "USD/JPY",
+      "strategy_name": "keltner",
+      "params": {"ema_period": 27, "atr_period": 9, "atr_multiplier": 1.134868660513808},
+      "aux_source": {"id": "yf:^VIX"},
+      "timeframe": "1h"
+    },
+    {
+      "asset": "USD/JPY",
+      "strategy_name": "bb_pctb",
+      "params": {"oversold": 0.2540719302420687, "overbought": 0.5571222670457218, "period": 31, "std_dev": 2.361248819612318},
+      "aux_source": {"id": "yf:^VIX"},
+      "timeframe": "1h"
+    },
+    {
+      "asset": "USD/JPY",
+      "strategy_name": "keltner",
+      "params": {"ema_period": 22, "atr_period": 14, "atr_multiplier": 3.017417233763858},
+      "aux_source": {"id": "yf:^GSPC"},
+      "timeframe": "1h"
+    },
+    {
+      "asset": "USD/CHF",
+      "strategy_name": "bb_pctb",
+      "params": {"oversold": 0.2076658475131819, "overbought": 0.6853606055299346, "period": 33, "std_dev": 1.6248884705026896},
+      "aux_source": {"id": "yf:^GSPC"},
+      "timeframe": "1h"
+    },
+    {
+      "asset": "USD/CHF",
+      "strategy_name": "bb_pctb",
+      "params": {"oversold": 0.12137364901306741, "overbought": 1.1765732383666232, "period": 34, "std_dev": 1.1717451623921065},
+      "aux_source": {"id": "yf:^GSPC"},
+      "timeframe": "1h"
+    }
+  ],
+  "initial_capital": 10000,
+  "weight_method": "equal",
+  "data_lookback_bars": 500,
+  "leverage": 500,
+  "maintenance_margin_pct": 0.2
+}

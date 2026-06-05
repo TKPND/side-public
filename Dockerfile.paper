@@ -1,0 +1,26 @@
+# Stage 1: Build Rust binary
+FROM rust:1.85-bookworm AS builder
+WORKDIR /build
+COPY rust/ rust/
+COPY config/ config/
+WORKDIR /build/rust
+RUN cargo build --release -p side-cli
+
+# Stage 2: Runtime
+FROM debian:bookworm-slim
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates libssl3 python3 python3-venv \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install uv for yfinance aux data fetching
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
+
+COPY --from=builder /build/rust/target/release/side /usr/local/bin/side
+COPY config/ /app/config/
+COPY scripts/yf_fetch.py /app/scripts/yf_fetch.py
+
+WORKDIR /app
+VOLUME ["/app/data"]
+
+ENTRYPOINT ["side", "paper"]
+CMD ["--config", "/app/config/paper_slots.json"]

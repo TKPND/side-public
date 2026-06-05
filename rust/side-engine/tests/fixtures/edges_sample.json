@@ -1,0 +1,24 @@
+[
+  {
+    "entry_minute": 0,
+    "direction": "long",
+    "hold_h_candidates": [1, 3],
+    "t_stat": 4.52,
+    "bh_q": 0.018,
+    "dsr_p": null,
+    "source_query": "bq_usdjpy_directional_windows.sql",
+    "asset": "USDJPY",
+    "timeframe": "1h"
+  },
+  {
+    "entry_minute": 55,
+    "direction": "short",
+    "hold_h_candidates": [2],
+    "t_stat": -4.87,
+    "bh_q": 0.023,
+    "dsr_p": null,
+    "source_query": "bq_usdjpy_directional_windows.sql",
+    "asset": "USDJPY",
+    "timeframe": "1m"
+  }
+]

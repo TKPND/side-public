@@ -1,0 +1,1 @@
+{"_smoke_manifest_pending_full_fleet":true,"generated_from_dir":"/tmp/wfd_dev_smoke","mask_recipe":"jq -cS .data_provenance=\"<MASKED>\" | sha256sum","report_json_count":1,"report_json_masked_sha256_list":[{"masked_sha256":"3a8831210c7d91097e973d72abf4401740b9e4d80119e0205e467b7872e60827","path":"usdjpy/fomc/report.json"}],"schema_version":"v4.12"}

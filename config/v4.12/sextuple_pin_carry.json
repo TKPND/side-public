@@ -1,0 +1,14 @@
+{
+  "schema_version": "v4.12",
+  "carry_purpose": "READ-ONLY reference to v4.11 sealed anchors. Phase 100 may not modify any of these commits — gate #11 enforces.",
+  "anchors": {
+    "threshold_commit": "6527cbc",
+    "regime_commit": "90bf4b2",
+    "sizing_exit_commit": "8a4e49d2",
+    "sizing_exit_commit_v410": "a5f71831",
+    "signal_commit_v411": "f8ccc8a8",
+    "engine_commit": "a5a1102"
+  },
+  "v411_anchor_tag_expected": "v4.11-anchor (NOT YET PUSHED — gate #11 absent until pushed)",
+  "_source_of_truth": ".planning/STATE.md §Sealed Anchors"
+}

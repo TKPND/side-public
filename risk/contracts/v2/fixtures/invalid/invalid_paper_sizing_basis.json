@@ -1,0 +1,113 @@
+{
+  "schema_version": "risk_contract.v2",
+  "contract_version": "v2",
+  "policy": {
+    "version": "risk-policy-v2-fixture",
+    "owner": "side",
+    "effective_from": "2026-05-18",
+    "required_fields": [
+      "candidate.surface.runtime_surface",
+      "candidate.sizing.requested_size",
+      "candidate.sizing.requested_size_basis",
+      "decision.fail_close_reason",
+      "application.runtime_sizing_applied"
+    ],
+    "fail_close_rules": [
+      {
+        "condition": "missing required policy field",
+        "decision_class": "block",
+        "fail_close_reason": "missing_required_policy_field"
+      }
+    ],
+    "rules": {
+      "non_stop_fail_close_reason": "not_fail_closed",
+      "paper_requested_size_basis": "unit_paper_slot_allocation"
+    }
+  },
+  "candidate": {
+    "candidate_schema_version": "risk_contract.v2.candidate.v1",
+    "candidate_id": "v2-invalid-paper-sizing-basis",
+    "strategy_id": "fixture_strategy",
+    "symbol_or_universe": "USDJPY",
+    "timeframe": "1m",
+    "validation_refs": [
+      "reports/v8.2/paper_live_runtime_sizing_guards_evidence.md"
+    ],
+    "surface": {
+      "runtime_surface": "paper",
+      "surface_status": "implemented",
+      "analysis_scope": "none",
+      "analysis_scope_status": "not_applicable"
+    },
+    "sizing": {
+      "requested_size": 10000.0,
+      "requested_size_basis": "unit_backtest_run"
+    },
+    "surface_payload": {
+      "fixture_kind": "schema_only_invalid_paper_sizing_basis",
+      "slot_id": "USDJPY/keltner/^VIX#1",
+      "slot_index": 0,
+      "slot_key": "USDJPY_keltner_VIX_1",
+      "allocation_source": "PaperConfig::allocations",
+      "allocation_method": "initial_capital_divided_by_slot_count",
+      "initial_capital": 10000.0,
+      "slot_count": 1,
+      "effective_leverage": 500.0,
+      "runtime_accounting_mode": "legacy_gross"
+    },
+    "artifact_root": "reports/tmp/risk_contract_v2_fixture/invalid_paper_sizing_basis"
+  },
+  "evidence": {
+    "refs": [
+      "docs/plans/2026-05-18-risk-contract-v2-sizing-unit-expansion-design.md",
+      "docs/plans/2026-05-18-risk-contract-v2-sizing-unit-schema-validator-tdd.md",
+      "reports/v8.2/paper_live_runtime_sizing_guards_evidence.md"
+    ],
+    "validator_proof_refs": [
+      "tests/test_validate_risk_contract.py",
+      "tests/test_risk_contract_v2_fixture_matrix.py"
+    ]
+  },
+  "context": {
+    "fixture_scope": "schema_validator_only",
+    "validator_acceptance": "rejected",
+    "runtime_adoption": "not_approved",
+    "paper_runtime_mode": "apply"
+  },
+  "decision": {
+    "decision_class": "cap",
+    "allowed_size": 7500.0,
+    "binding_rule": "paper_slot_allocation_cap_fixture",
+    "supporting_rules": [
+      "paper_slot_allocation_basis"
+    ],
+    "fail_close_reason": "not_fail_closed",
+    "evidence_refs": [
+      "docs/plans/2026-05-18-risk-contract-v2-sizing-unit-expansion-design.md",
+      "docs/plans/2026-05-18-risk-contract-v2-sizing-unit-schema-validator-tdd.md"
+    ],
+    "policy_version": "risk-policy-v2-fixture"
+  },
+  "application": {
+    "execution_state": "continued",
+    "application_status": "applied",
+    "runtime_sizing_applied": true,
+    "sizing_effect": "reduced",
+    "effective_size": 7500.0,
+    "metrics_rescaled": false,
+    "application_reason": "invalid fixture: paper runtime surface cannot use backtest sizing basis"
+  },
+  "trace": {
+    "policy_version": "risk-policy-v2-fixture",
+    "candidate_id": "v2-invalid-paper-sizing-basis",
+    "input_evidence_refs": [
+      "docs/plans/2026-05-18-risk-contract-v2-sizing-unit-expansion-design.md",
+      "docs/plans/2026-05-18-risk-contract-v2-sizing-unit-schema-validator-tdd.md"
+    ],
+    "binding_rule": "paper_slot_allocation_cap_fixture",
+    "decision_class": "cap",
+    "emitted_artifact_path": "risk/contracts/v2/fixtures/invalid/invalid_paper_sizing_basis.json",
+    "validated_schema_version": "risk_contract.v2",
+    "validator_result_schema_version": "risk_contract_validator_result.v2"
+  }
+}

@@ -1,0 +1,7 @@
+# SHA-256 hashes for Phase 98 side-engine reference fixtures (Parquet, crate-local)
+# Format: <sha256hex>  <filename>
+# Generated: 2026-04-25 (Phase 98 Wave 1, baked from usdjpy_1h_sample.csv via uv run --with pandas --with pyarrow)
+# Schema: Phase 97 SEAL canonical (datetime_ns:i64 + open/high/low/close/volume:f64), snappy/use_dictionary=False/version=2.6
+# Source ref: .planning/phases/97-.../SEAL/parquet_schema.json (D-09)
+#
+14def03e6037df2108b4c0faba9da0a71306bc8ff5259541bfeff9b8f24dd0b0  usdjpy_1h_sample.parquet

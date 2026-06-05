@@ -1,0 +1,90 @@
+{
+  "n_eval": 8,
+  "eval_label_distribution": {
+    "HAWK": 8,
+    "DOV": 0,
+    "NEUT": 0
+  },
+  "finbert": {
+    "macro_f1": 0.2,
+    "per_label_f1": {
+      "HAWK": 0.4,
+      "DOV": 0.0,
+      "NEUT": 0.0
+    },
+    "confusion_matrix": [
+      [
+        2,
+        0,
+        6
+      ],
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "predictions": [
+      "NEUT",
+      "NEUT",
+      "NEUT",
+      "NEUT",
+      "HAWK",
+      "NEUT",
+      "HAWK",
+      "NEUT"
+    ]
+  },
+  "roberta": {
+    "macro_f1": 0.5,
+    "per_label_f1": {
+      "HAWK": 1.0,
+      "DOV": 0.0,
+      "NEUT": 0.0
+    },
+    "confusion_matrix": [
+      [
+        8,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "predictions": [
+      "HAWK",
+      "HAWK",
+      "HAWK",
+      "HAWK",
+      "HAWK",
+      "HAWK",
+      "HAWK",
+      "HAWK"
+    ]
+  },
+  "gold_labels": [
+    "HAWK",
+    "HAWK",
+    "HAWK",
+    "HAWK",
+    "HAWK",
+    "HAWK",
+    "HAWK",
+    "HAWK"
+  ],
+  "labels_metadata_sha256": "9ac1d9621a864e4a63f02a848c2b163f90ea0b47e8c92c04d5f435f69b86d020",
+  "evaluated_at": "2026-04-26T00:51:38.075120+00:00"
+}

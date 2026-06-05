@@ -1,0 +1,67 @@
+{
+  "schema_version": "risk_contract.v1",
+  "contract_version": "v1",
+  "policy": {
+    "version": "risk-policy.v1.fixture",
+    "owner": "side-v5.4-risk-contract-validator",
+    "effective_from": "2026-05-02",
+    "required_fields": [
+      "policy.version",
+      "policy.owner",
+      "policy.effective_from",
+      "candidate.strategy_id",
+      "candidate.validation_refs",
+      "evidence.refs",
+      "trace.emitted_artifact_path"
+    ],
+    "fail_close_rules": [
+      {
+        "condition": "missing required policy field",
+        "decision_class": "block",
+        "fail_close_reason": "missing_required_policy_field"
+      }
+    ]
+  },
+  "candidate": {
+    "strategy_id": "future-strategy-candidate.fixture",
+    "symbol_or_universe": "future-universe.fixture",
+    "timeframe": "candidate-defined",
+    "validation_refs": [
+      "future-validation-plan-required-before-risk-contract-evaluation"
+    ]
+  },
+  "evidence": {
+    "refs": [
+      "data/no_go_map/no_go_map_v1.json"
+    ]
+  },
+  "context": {
+    "phase": "126-contract-artifacts-and-fixture-matrix",
+    "purpose": "invalid fixture with fail-close reason outside v1 vocabulary",
+    "active_artifact_root": "risk/contracts/v1",
+    "docs_only": true
+  },
+  "decision": {
+    "decision_class": "block",
+    "allowed_size": 0,
+    "binding_rule": "policy.required_fields.missing",
+    "supporting_rules": [
+      "no_go.v4_sizing_regime_macro_rescue_layers"
+    ],
+    "fail_close_reason": "not_a_fail_close_reason",
+    "evidence_refs": [
+      "data/no_go_map/no_go_map_v1.json"
+    ],
+    "policy_version": "risk-policy.v1.fixture"
+  },
+  "trace": {
+    "policy_version": "risk-policy.v1.fixture",
+    "candidate_id": "future-strategy-candidate.fixture",
+    "input_evidence_refs": [
+      "data/no_go_map/no_go_map_v1.json"
+    ],
+    "binding_rule": "policy.required_fields.missing",
+    "decision_class": "block",
+    "emitted_artifact_path": "risk/contracts/v1/fixtures/invalid/invalid_fail_close_reason.json"
+  }
+}

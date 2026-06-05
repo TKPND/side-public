@@ -1,0 +1,97 @@
+{
+  "schema_version": "risk_contract.v2",
+  "contract_version": "v2",
+  "policy": {
+    "version": "risk-policy-v2-fixture",
+    "owner": "side",
+    "effective_from": "2026-05-15",
+    "required_fields": [
+      "candidate.surface.runtime_surface",
+      "candidate.sizing.requested_size",
+      "decision.fail_close_reason",
+      "application.runtime_sizing_applied"
+    ],
+    "fail_close_rules": [
+      {
+        "condition": "missing required policy field",
+        "decision_class": "block",
+        "fail_close_reason": "missing_required_policy_field"
+      }
+    ],
+    "rules": {
+      "non_stop_fail_close_reason": "not_fail_closed"
+    }
+  },
+  "candidate": {
+    "candidate_schema_version": "risk_contract.v2.candidate.v1",
+    "candidate_id": "v2-invalid-scan-sizing-basis",
+    "strategy_id": "fixture_strategy",
+    "symbol_or_universe": "EURUSD,USDJPY",
+    "timeframe": "1h",
+    "validation_refs": [
+      "reports/v8.3/scan_wfd_runtime_cap_application_evidence.md"
+    ],
+    "surface": {
+      "runtime_surface": "scan",
+      "surface_status": "guarded",
+      "analysis_scope": "wfd_statistical_output",
+      "analysis_scope_status": "metadata_only"
+    },
+    "sizing": {
+      "requested_size": 0.25,
+      "requested_size_basis": "unit_backtest_run"
+    },
+    "surface_payload": {
+      "fixture_kind": "schema_only_invalid_scan_sizing_basis",
+      "wfd_statistical_output": "metadata_only_not_metric_rescaled"
+    },
+    "artifact_root": "reports/tmp/risk_contract_v2_fixture/invalid_scan_sizing_basis"
+  },
+  "evidence": {
+    "refs": [
+      "docs/plans/2026-05-15-risk-contract-v2-schema-file-tdd.md"
+    ],
+    "validator_proof_refs": [
+      "tests/test_risk_contract_v2_schema.py"
+    ]
+  },
+  "context": {
+    "fixture_scope": "schema_only",
+    "validator_acceptance": "approved",
+    "runtime_adoption": "not_approved"
+  },
+  "decision": {
+    "decision_class": "cap",
+    "allowed_size": 0.25,
+    "binding_rule": "scan_metadata_cap_fixture",
+    "supporting_rules": [
+      "surface_status_guarded"
+    ],
+    "fail_close_reason": "not_fail_closed",
+    "evidence_refs": [
+      "docs/plans/2026-05-15-risk-contract-v2-schema-file-tdd.md"
+    ],
+    "policy_version": "risk-policy-v2-fixture"
+  },
+  "application": {
+    "execution_state": "continued",
+    "application_status": "metadata_only",
+    "runtime_sizing_applied": false,
+    "sizing_effect": "none",
+    "effective_size": 0.25,
+    "metrics_rescaled": false,
+    "application_reason": "scan/WFD fixture records metadata-only scope; runtime adoption remains unapproved"
+  },
+  "trace": {
+    "policy_version": "risk-policy-v2-fixture",
+    "candidate_id": "v2-invalid-scan-sizing-basis",
+    "input_evidence_refs": [
+      "docs/plans/2026-05-15-risk-contract-v2-schema-file-tdd.md"
+    ],
+    "binding_rule": "scan_metadata_cap_fixture",
+    "decision_class": "cap",
+    "emitted_artifact_path": "risk/contracts/v2/fixtures/invalid/invalid_scan_sizing_basis.json",
+    "validated_schema_version": "risk_contract.v2",
+    "validator_result_schema_version": "risk_contract_validator_result.v2"
+  }
+}

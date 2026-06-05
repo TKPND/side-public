@@ -1,0 +1,48 @@
+{
+  "actual_columns": [
+    "pair",
+    "bar_time",
+    "atr_14",
+    "rolling_quantile_low",
+    "rolling_quantile_high",
+    "bucket",
+    "vol_input_ts"
+  ],
+  "actual_dtypes": {
+    "atr_14": "Float64",
+    "bar_time": "Datetime(time_unit='ns', time_zone=None)",
+    "bucket": "String",
+    "pair": "String",
+    "rolling_quantile_high": "Float64",
+    "rolling_quantile_low": "Float64",
+    "vol_input_ts": "Datetime(time_unit='ns', time_zone=None)"
+  },
+  "d71_join_compatible": false,
+  "expected_join_keys": [
+    "event_ts",
+    "pair",
+    "vol_bucket"
+  ],
+  "expected_vol_bucket_values": [
+    "high",
+    "low",
+    "mid"
+  ],
+  "generated_at": "2026-04-25T22:22:44.531322+00:00",
+  "missing_join_keys": [
+    "event_ts",
+    "vol_bucket"
+  ],
+  "row_count": 240,
+  "source_path": "data/v4.11/vol_per_slot.parquet",
+  "vol_bucket_probe": {
+    "matches_expected_set": false,
+    "probed_column": "bucket",
+    "unique_values": [
+      "VOL_HIGH",
+      "VOL_LOW",
+      "VOL_MID",
+      "VOL_NA"
+    ]
+  }
+}

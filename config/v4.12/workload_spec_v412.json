@@ -1,0 +1,20 @@
+{
+  "schema_version": "v4.12",
+  "machine_type": "n2-standard-8",
+  "vcpu": 8,
+  "memory_gb": 32,
+  "disk_type": "pd-standard",
+  "disk_size_gb": 100,
+  "region": "us-central1-a",
+  "image_family": "ubuntu-2204-lts",
+  "rust_toolchain": "1.83.0",
+  "deterministic_requirements": {
+    "report_json_canonicalisation": "jq -cS '.data_provenance = \"<MASKED>\"' | sha256sum",
+    "rust_release_profile": "release",
+    "rng_seed_policy": "fixed-per-cell (TBD Phase 102 — D-B2 deferred)",
+    "parallel_float_reduction_policy": "TBD Phase 102 — D-B2 deferred",
+    "current_residue_acknowledged": true,
+    "residue_documented_in": "docs/v4.12/wfd-nondeterminism-rca.md"
+  },
+  "_canonical_sha256": "6412994375cf94d17d0f955d8451b9e3134e5305eeb01d2a99cc758efae3d8ce"
+}

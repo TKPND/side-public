@@ -1,0 +1,440 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "risk_contract_v2.schema.json",
+  "title": "Side Risk Contract v2",
+  "description": "Side risk contract v2 schema shape. Separates candidate surface, sizing request, policy decision, runtime application status, and trace dispatch visibility. Validator acceptance boundary only; runtime acceptance remains out of scope.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "contract_version",
+    "policy",
+    "candidate",
+    "evidence",
+    "context",
+    "decision",
+    "application",
+    "trace"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "risk_contract.v2"
+    },
+    "contract_version": {
+      "const": "v2"
+    },
+    "policy": {
+      "$ref": "#/$defs/policy"
+    },
+    "candidate": {
+      "$ref": "#/$defs/candidate"
+    },
+    "evidence": {
+      "$ref": "#/$defs/evidence"
+    },
+    "context": {
+      "$ref": "#/$defs/context"
+    },
+    "decision": {
+      "$ref": "#/$defs/decision"
+    },
+    "application": {
+      "$ref": "#/$defs/application"
+    },
+    "trace": {
+      "$ref": "#/$defs/trace"
+    }
+  },
+  "$defs": {
+    "non_empty_string": {
+      "type": "string",
+      "minLength": 1
+    },
+    "non_empty_string_array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/non_empty_string"
+      },
+      "minItems": 1
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "owner",
+        "effective_from",
+        "required_fields",
+        "fail_close_rules"
+      ],
+      "properties": {
+        "version": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "owner": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "effective_from": {
+          "type": "string",
+          "format": "date"
+        },
+        "required_fields": {
+          "$ref": "#/$defs/non_empty_string_array"
+        },
+        "fail_close_rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fail_close_rule"
+          },
+          "minItems": 1
+        },
+        "rules": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "policy_extensions": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    },
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate_schema_version",
+        "candidate_id",
+        "strategy_id",
+        "symbol_or_universe",
+        "timeframe",
+        "validation_refs",
+        "surface",
+        "sizing",
+        "surface_payload"
+      ],
+      "properties": {
+        "candidate_schema_version": {
+          "const": "risk_contract.v2.candidate.v1"
+        },
+        "candidate_id": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "strategy_id": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "symbol_or_universe": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "timeframe": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "validation_refs": {
+          "$ref": "#/$defs/non_empty_string_array"
+        },
+        "surface": {
+          "$ref": "#/$defs/surface"
+        },
+        "sizing": {
+          "$ref": "#/$defs/sizing"
+        },
+        "surface_payload": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "artifact_root": {
+          "$ref": "#/$defs/non_empty_string"
+        }
+      }
+    },
+    "surface": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "runtime_surface",
+        "surface_status",
+        "analysis_scope",
+        "analysis_scope_status"
+      ],
+      "properties": {
+        "runtime_surface": {
+          "type": "string",
+          "enum": [
+            "backtest",
+            "paper",
+            "scan",
+            "live"
+          ]
+        },
+        "surface_status": {
+          "type": "string",
+          "enum": [
+            "implemented",
+            "guarded",
+            "not_wired",
+            "not_claimable"
+          ]
+        },
+        "analysis_scope": {
+          "type": "string",
+          "enum": [
+            "none",
+            "wfd_statistical_output"
+          ]
+        },
+        "analysis_scope_status": {
+          "type": "string",
+          "enum": [
+            "not_applicable",
+            "metadata_only",
+            "metrics_rescaled"
+          ]
+        }
+      }
+    },
+    "sizing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "requested_size",
+        "requested_size_basis"
+      ],
+      "properties": {
+        "requested_size": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "requested_size_basis": {
+          "type": "string",
+          "enum": [
+            "unit_backtest_run",
+            "unit_scan_slot",
+            "unit_paper_slot_allocation",
+            "unit_live_order_notional"
+          ]
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "refs"
+      ],
+      "properties": {
+        "refs": {
+          "$ref": "#/$defs/non_empty_string_array"
+        },
+        "source_proof_refs": {
+          "$ref": "#/$defs/non_empty_string_array"
+        },
+        "cost_model_refs": {
+          "$ref": "#/$defs/non_empty_string_array"
+        },
+        "validator_proof_refs": {
+          "$ref": "#/$defs/non_empty_string_array"
+        },
+        "evidence_extensions": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    },
+    "context": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision_class",
+        "allowed_size",
+        "binding_rule",
+        "supporting_rules",
+        "fail_close_reason",
+        "evidence_refs",
+        "policy_version"
+      ],
+      "properties": {
+        "decision_class": {
+          "$ref": "#/$defs/decision_class"
+        },
+        "allowed_size": {
+          "type": "number",
+          "minimum": 0
+        },
+        "binding_rule": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "supporting_rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/non_empty_string"
+          }
+        },
+        "fail_close_reason": {
+          "$ref": "#/$defs/fail_close_reason_v2"
+        },
+        "evidence_refs": {
+          "$ref": "#/$defs/non_empty_string_array"
+        },
+        "policy_version": {
+          "$ref": "#/$defs/non_empty_string"
+        }
+      }
+    },
+    "application": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "execution_state",
+        "application_status",
+        "runtime_sizing_applied",
+        "sizing_effect",
+        "metrics_rescaled"
+      ],
+      "properties": {
+        "execution_state": {
+          "type": "string",
+          "enum": [
+            "continued",
+            "stopped",
+            "gate_error"
+          ]
+        },
+        "application_status": {
+          "type": "string",
+          "enum": [
+            "not_applicable",
+            "deferred",
+            "applied",
+            "not_claimable",
+            "metadata_only"
+          ]
+        },
+        "runtime_sizing_applied": {
+          "type": "boolean"
+        },
+        "sizing_effect": {
+          "type": "string",
+          "enum": [
+            "none",
+            "reduced",
+            "clamped",
+            "rejected",
+            "not_applicable"
+          ]
+        },
+        "effective_size": {
+          "type": "number",
+          "minimum": 0
+        },
+        "metrics_rescaled": {
+          "type": "boolean"
+        },
+        "application_reason": {
+          "$ref": "#/$defs/non_empty_string"
+        }
+      }
+    },
+    "trace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "policy_version",
+        "candidate_id",
+        "input_evidence_refs",
+        "binding_rule",
+        "decision_class",
+        "emitted_artifact_path",
+        "validated_schema_version",
+        "validator_result_schema_version"
+      ],
+      "properties": {
+        "policy_version": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "candidate_id": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "input_evidence_refs": {
+          "$ref": "#/$defs/non_empty_string_array"
+        },
+        "binding_rule": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "decision_class": {
+          "$ref": "#/$defs/decision_class"
+        },
+        "emitted_artifact_path": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "validated_schema_version": {
+          "const": "risk_contract.v2"
+        },
+        "validator_result_schema_version": {
+          "const": "risk_contract_validator_result.v2"
+        }
+      }
+    },
+    "decision_class": {
+      "type": "string",
+      "enum": [
+        "size",
+        "cap",
+        "reject",
+        "kill",
+        "block"
+      ]
+    },
+    "fail_close_reason_v2": {
+      "type": "string",
+      "enum": [
+        "not_fail_closed",
+        "missing_required_policy_field",
+        "stale_evidence",
+        "policy_evidence_contradiction",
+        "evidence_acquisition_failure",
+        "absent_source_proof",
+        "malformed_policy",
+        "candidate_validation_failure"
+      ]
+    },
+    "fail_close_rule_reason_v2": {
+      "type": "string",
+      "enum": [
+        "missing_required_policy_field",
+        "stale_evidence",
+        "policy_evidence_contradiction",
+        "evidence_acquisition_failure",
+        "absent_source_proof",
+        "malformed_policy",
+        "candidate_validation_failure"
+      ]
+    },
+    "fail_close_rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "condition",
+        "decision_class",
+        "fail_close_reason"
+      ],
+      "properties": {
+        "condition": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "decision_class": {
+          "type": "string",
+          "enum": [
+            "kill",
+            "block"
+          ]
+        },
+        "fail_close_reason": {
+          "$ref": "#/$defs/fail_close_rule_reason_v2"
+        }
+      }
+    }
+  }
+}

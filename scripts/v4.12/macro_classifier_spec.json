@@ -1,0 +1,24 @@
+{
+  "selected_classifier": "roberta",
+  "selection_rationale": "roberta macro_f1 (0.5000) > finbert (0.2000) by +0.3000 (>0.02 threshold)",
+  "finbert": {
+    "repo_id": "ProsusAI/finbert",
+    "commit_sha": "4556d13015211d73dccd3fdd39d39232506f3e43",
+    "label_map": {
+      "positive": "DOV",
+      "negative": "HAWK",
+      "neutral": "NEUT"
+    },
+    "macro_f1_eval": 0.2
+  },
+  "roberta": {
+    "repo_id": "cardiffnlp/twitter-roberta-base-sentiment-latest",
+    "commit_sha": "3216a57f2a0d9c45a2e6c20157c20c49fb4bf9c7",
+    "fine_tune_seed": 20260426,
+    "train_indices_sha256": "0df1a5a3b55b46b40d94250ab05f6a91491e94b6285c9189447e7179513cbb9e",
+    "macro_f1_eval": 0.5
+  },
+  "labels_metadata_sha256": "9ac1d9621a864e4a63f02a848c2b163f90ea0b47e8c92c04d5f435f69b86d020",
+  "evaluated_at": "2026-04-26T00:51:38.075120+00:00",
+  "_note": "draft — Wave 2 atomic SEAL pins this file's sha256 into 4 SEAL artifacts"
+}

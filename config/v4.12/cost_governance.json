@@ -1,0 +1,18 @@
+{
+  "schema_version": "v4.12",
+  "monthly_budget_jpy": 4000,
+  "max_concurrent_vms": 2,
+  "max_runtime_per_vm_minutes": 120,
+  "auto_shutdown": {
+    "policy": "per-vm-crontab",
+    "idle_threshold_minutes": 5,
+    "process_signal": "wfd-rerun",
+    "template_path": "scripts/gcp/auto_shutdown.cron"
+  },
+  "alert_email": "contact@example.com",
+  "alert_thresholds_pct": [50, 90, 100],
+  "spot_vm_policy": "deferred-to-v413",
+  "arm_vm_policy": "deferred-to-v413",
+  "preferred_region": "us-central1-a",
+  "fallback_region_policy": "REFUSE — fail rather than fallback (P-10 region lock)"
+}

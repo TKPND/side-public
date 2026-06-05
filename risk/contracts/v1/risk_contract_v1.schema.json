@@ -1,0 +1,264 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "risk_contract_v1.schema.json",
+  "title": "Side Risk Contract v1",
+  "description": "Side risk contract v1 schema shape. Decision precedence is block > kill > reject > cap > size. This schema is specification-only; no validator or runtime implementation is defined by this schema.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "contract_version",
+    "policy",
+    "candidate",
+    "evidence",
+    "context",
+    "decision",
+    "trace"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "risk_contract.v1"
+    },
+    "contract_version": {
+      "const": "v1"
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "version",
+        "owner",
+        "effective_from",
+        "required_fields",
+        "fail_close_rules"
+      ],
+      "properties": {
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "owner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "effective_from": {
+          "type": "string",
+          "format": "date"
+        },
+        "required_fields": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "fail_close_rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fail_close_rule"
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "candidate": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "strategy_id",
+        "symbol_or_universe",
+        "timeframe",
+        "validation_refs"
+      ],
+      "properties": {
+        "strategy_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "symbol_or_universe": {
+          "type": "string",
+          "minLength": 1
+        },
+        "timeframe": {
+          "type": "string",
+          "minLength": 1
+        },
+        "validation_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "refs"
+      ],
+      "properties": {
+        "refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "context": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "decision": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "decision_class",
+        "allowed_size",
+        "binding_rule",
+        "supporting_rules",
+        "fail_close_reason",
+        "evidence_refs",
+        "policy_version"
+      ],
+      "properties": {
+        "decision_class": {
+          "type": "string",
+          "enum": [
+            "size",
+            "cap",
+            "reject",
+            "kill",
+            "block"
+          ],
+          "description": "Decision precedence is block > kill > reject > cap > size."
+        },
+        "allowed_size": {
+          "type": "number",
+          "minimum": 0
+        },
+        "binding_rule": {
+          "type": "string",
+          "minLength": 1
+        },
+        "supporting_rules": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "fail_close_reason": {
+          "$ref": "#/$defs/fail_close_reason"
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "policy_version": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "trace": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "policy_version",
+        "candidate_id",
+        "input_evidence_refs",
+        "binding_rule",
+        "decision_class",
+        "emitted_artifact_path"
+      ],
+      "properties": {
+        "policy_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "candidate_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "input_evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "binding_rule": {
+          "type": "string",
+          "minLength": 1
+        },
+        "decision_class": {
+          "type": "string",
+          "enum": [
+            "size",
+            "cap",
+            "reject",
+            "kill",
+            "block"
+          ]
+        },
+        "emitted_artifact_path": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  },
+  "$defs": {
+    "fail_close_reason": {
+      "type": "string",
+      "enum": [
+        "missing_required_policy_field",
+        "stale_evidence",
+        "policy_evidence_contradiction",
+        "evidence_acquisition_failure",
+        "absent_source_proof",
+        "malformed_policy",
+        "insufficient_validation_power",
+        "candidate_validation_failure"
+      ]
+    },
+    "fail_close_rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "condition",
+        "decision_class",
+        "fail_close_reason"
+      ],
+      "properties": {
+        "condition": {
+          "type": "string",
+          "minLength": 1
+        },
+        "decision_class": {
+          "type": "string",
+          "enum": [
+            "kill",
+            "block"
+          ]
+        },
+        "fail_close_reason": {
+          "$ref": "#/$defs/fail_close_reason"
+        }
+      }
+    }
+  }
+}

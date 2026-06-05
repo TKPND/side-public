@@ -1,0 +1,10 @@
+# SHA-256 hashes for Phase 97 reference fixtures (Parquet-only, D-07 CSV lock removed)
+# Format: <filename> <sha256hex>
+# Generated: 2026-04-24 (Wave 0 bake, finalized Wave 3)
+# Source: Dukascopy (baked Wave 0 commit 3a63e6e from archived monthly tick CSV + dukascopy-python 1h fetch)
+# Writer options: pyarrow, compression=snappy, use_dictionary=False, data_page_size=1048576, version=2.6
+#
+# Tick Parquet: 159704 rows, 2024-01-08 UTC, USDJPY, schema=timestamp:TIMESTAMP(ms,UTC)+bid/askPrice/Volume:FLOAT×4
+usdjpy_ticks_2024-01-08.parquet 83a685bc441afaef60012ce93deb81864196573b48e124376ccc2724d167b74e
+# 1h OHLCV Parquet: 16 rows (market hours), 2024-01-08 UTC, USDJPY, schema=datetime:TIMESTAMP(ms,UTC)+OHLCV:FLOAT×5
+usdjpy_1h_sample.parquet 941af7ba848b4af57e6dc49dda82ed5b4c2995b0312f29bba3de6d2ee225cbd1

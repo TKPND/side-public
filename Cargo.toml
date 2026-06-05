@@ -1,0 +1,3 @@
+[workspace]
+members = ["rust/side-engine", "rust/side-cli", "rust/side-mirror"]
+resolver = "2"

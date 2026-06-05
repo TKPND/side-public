@@ -1,0 +1,47 @@
+{
+  "schema_version": "side.live_preflight.result.v1",
+  "artifact_kind": "live_preflight_result",
+  "execution_mode": "no_order_preflight",
+  "result": {
+    "status": "failed",
+    "failure_class": "mutation_attempt",
+    "failure_reason": "broker_mutation_attempted",
+    "terminal_gate": "no_order_assertion"
+  },
+  "risk_gate": {
+    "schema_version": "risk_contract.v2",
+    "contract_version": "v2",
+    "validator_result_schema_version": "risk_contract_validator_result.v2",
+    "schema_ref": "risk/contracts/v2/risk_contract_v2.schema.json",
+    "validated_schema_ref": "risk/contracts/v2/risk_contract_v2.schema.json",
+    "validator": "scripts/validate_risk_contract.py"
+  },
+  "live_preflight": {
+    "order_mutation_allowed": false,
+    "order_mutation_attempted": false,
+    "broker_mutation_attempted": true,
+    "account_proof": {
+      "account_alias": "acct-alias-primary",
+      "account_snapshot_ref": "acct-snapshot-sha256-fixture"
+    },
+    "market_proof": {
+      "market_snapshot_ref": "market-snapshot-sha256-fixture"
+    },
+    "order_intent": {
+      "idempotency_key_hash": "idempotency-sha256-fixture",
+      "order_mutation_allowed": false
+    },
+    "kill_switch_proof": {
+      "global_gate_status": "passed",
+      "global_gate_ref": "gate-ref-sha256-fixture-global"
+    },
+    "idempotency_proof": {
+      "candidate_identity_digest": "candidate-identity-sha256-fixture",
+      "idempotency_key_hash": "idempotency-sha256-fixture"
+    }
+  },
+  "emission": {
+    "persisted": false,
+    "protected_output_root": false
+  }
+}

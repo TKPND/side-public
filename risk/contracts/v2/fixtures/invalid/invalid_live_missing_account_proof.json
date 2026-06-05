@@ -1,0 +1,167 @@
+{
+  "schema_version": "risk_contract.v2",
+  "contract_version": "v2",
+  "policy": {
+    "version": "risk-policy-v2-fixture",
+    "owner": "side",
+    "effective_from": "2026-05-19",
+    "required_fields": [
+      "candidate.surface.runtime_surface",
+      "candidate.surface.surface_status",
+      "candidate.sizing.requested_size",
+      "candidate.sizing.requested_size_basis",
+      "candidate.surface_payload.account_proof",
+      "candidate.surface_payload.market_proof",
+      "candidate.surface_payload.order_intent",
+      "candidate.surface_payload.kill_switch_proof",
+      "candidate.surface_payload.idempotency_proof",
+      "decision.fail_close_reason",
+      "application.runtime_sizing_applied"
+    ],
+    "fail_close_rules": [
+      {
+        "condition": "missing or unsafe live contract proof",
+        "decision_class": "block",
+        "fail_close_reason": "candidate_validation_failure"
+      }
+    ],
+    "rules": {
+      "non_stop_fail_close_reason": "not_fail_closed",
+      "live_requested_size_basis": "unit_live_order_notional",
+      "live_runtime_claim_allowed": false,
+      "order_mutation_allowed": false,
+      "broker_mutation_attempted": false
+    }
+  },
+  "candidate": {
+    "candidate_schema_version": "risk_contract.v2.candidate.v1",
+    "candidate_id": "v2-invalid-live-missing-account-proof",
+    "strategy_id": "fixture_strategy",
+    "symbol_or_universe": "EURUSD",
+    "timeframe": "1m",
+    "validation_refs": [
+      "docs/plans/2026-05-19-v8.5-live-v2-broker-sizing-contract-design.md"
+    ],
+    "surface": {
+      "runtime_surface": "live",
+      "surface_status": "guarded",
+      "analysis_scope": "none",
+      "analysis_scope_status": "not_applicable"
+    },
+    "sizing": {
+      "requested_size": 10000.0,
+      "requested_size_basis": "unit_live_order_notional"
+    },
+    "surface_payload": {
+      "runtime_adoption": "not_approved",
+      "order_mutation_allowed": false,
+      "broker_mutation_attempted": false,
+      "market_proof": {
+        "symbol": "EURUSD",
+        "market_snapshot_id": "market-snapshot-sha256-fixture",
+        "market_ts": "2026-05-19T00:00:01Z",
+        "market_max_age_ms": 5000,
+        "bid": 1.0801,
+        "ask": 1.0803,
+        "spread_bps": 1.85,
+        "price_source": "fixture_sanitized_quote"
+      },
+      "order_intent": {
+        "side": "buy",
+        "order_type": "limit",
+        "time_in_force": "IOC",
+        "requested_notional": 10000.0,
+        "allowed_notional": 7500.0,
+        "notional_currency": "USD",
+        "notional_source": "manual_preflight",
+        "price_bounds": {
+          "min_price": 1.0800,
+          "max_price": 1.0810
+        },
+        "max_slippage_bps": 5.0,
+        "idempotency_key_hash": "idempotency-sha256-fixture",
+        "order_mutation_allowed": false
+      },
+      "kill_switch_proof": {
+        "global_gate_status": "passed",
+        "global_gate_ref": "gate-ref-sha256-fixture-global",
+        "strategy_gate_status": "passed",
+        "strategy_gate_ref": "gate-ref-sha256-fixture-strategy",
+        "symbol_gate_status": "passed",
+        "symbol_gate_ref": "gate-ref-sha256-fixture-symbol",
+        "broker_account_gate_status": "passed",
+        "broker_account_gate_ref": "gate-ref-sha256-fixture-broker-account",
+        "exposure_gate_status": "passed",
+        "exposure_gate_ref": "gate-ref-sha256-fixture-exposure",
+        "data_quality_gate_status": "passed",
+        "data_quality_gate_ref": "gate-ref-sha256-fixture-data-quality",
+        "proof_ts": "2026-05-19T00:00:02Z",
+        "proof_max_age_ms": 10000
+      },
+      "idempotency_proof": {
+        "candidate_identity_digest": "candidate-identity-sha256-fixture",
+        "idempotency_key_hash": "idempotency-sha256-fixture",
+        "duplicate_check_status": "passed",
+        "duplicate_check_ref": "duplicate-check-sha256-fixture",
+        "proof_ts": "2026-05-19T00:00:03Z",
+        "proof_max_age_ms": 10000
+      }
+    },
+    "artifact_root": "reports/tmp/risk_contract_v2_fixture/invalid_live_missing_account_proof"
+  },
+  "evidence": {
+    "refs": [
+      "docs/plans/2026-05-19-v8.5-live-v2-broker-sizing-contract-design.md",
+      "docs/plans/2026-05-18-v8.5-live-v2-runtime-adoption-design.md"
+    ],
+    "validator_proof_refs": [
+      "tests/test_risk_contract_v2_live_fixture_payloads.py"
+    ]
+  },
+  "context": {
+    "fixture_scope": "schema_validator_only",
+    "validator_acceptance": "rejected",
+    "schema_claimable": false,
+    "runtime_adoption": "not_approved",
+    "live_runtime_claim_allowed": false,
+    "order_mutation_allowed": false,
+    "broker_mutation_attempted": false,
+    "claim_block_reason": "missing_live_account_proof"
+  },
+  "decision": {
+    "decision_class": "cap",
+    "allowed_size": 7500.0,
+    "binding_rule": "live_order_notional_cap_fixture",
+    "supporting_rules": [
+      "live_order_notional_basis",
+      "sanitized_live_contract_proof"
+    ],
+    "fail_close_reason": "not_fail_closed",
+    "evidence_refs": [
+      "docs/plans/2026-05-19-v8.5-live-v2-broker-sizing-contract-design.md"
+    ],
+    "policy_version": "risk-policy-v2-fixture"
+  },
+  "application": {
+    "execution_state": "stopped",
+    "application_status": "not_applicable",
+    "runtime_sizing_applied": false,
+    "sizing_effect": "not_applicable",
+    "effective_size": 7500.0,
+    "metrics_rescaled": false,
+    "application_reason": "invalid fixture: guarded live claimable proof is missing account_proof"
+  },
+  "trace": {
+    "policy_version": "risk-policy-v2-fixture",
+    "candidate_id": "v2-invalid-live-missing-account-proof",
+    "input_evidence_refs": [
+      "docs/plans/2026-05-19-v8.5-live-v2-broker-sizing-contract-design.md",
+      "docs/plans/2026-05-18-v8.5-live-v2-runtime-adoption-design.md"
+    ],
+    "binding_rule": "live_order_notional_cap_fixture",
+    "decision_class": "cap",
+    "emitted_artifact_path": "risk/contracts/v2/fixtures/invalid/invalid_live_missing_account_proof.json",
+    "validated_schema_version": "risk_contract.v2",
+    "validator_result_schema_version": "risk_contract_validator_result.v2"
+  }
+}
