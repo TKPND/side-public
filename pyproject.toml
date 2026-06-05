@@ -4,18 +4,13 @@ version = "0.1.0"
 description = "Fee-aware FX strategy discovery — v4.4 sign-forensics analytics"
 requires-python = ">=3.12"
 dependencies = [
-    "accelerate>=1.13.0",
     "arch>=8.0.0",
-    "datasets>=2.19.1",
-    "huggingface-hub>=1.12.0",
     "numpy>=2.0,<3.0",
     "pandas>=2.0,<3.0",
     "polars>=1.20,<2.0",
     "pyarrow>=16.0,<21.0",
     "scipy>=1.14,<2.0",
     "statsmodels>=0.14,<0.15",
-    "torch>=2.11.0",
-    "transformers>=5.6.2",
 ]
 
 [tool.pytest.ini_options]
@@ -28,6 +23,13 @@ dev = [
     "pytest-json-report>=1.5.0",
     "pytest-timeout>=2.3",
     "tzdata>=2025.3",
+]
+v412-ml = [
+    "accelerate>=1.13.0",
+    "huggingface-hub>=1.12.0",
+    "scikit-learn>=1.8,<2",
+    "torch>=2.11.0",
+    "transformers>=5.6.2",
 ]
 
 [tool.uv.sources]
