@@ -185,7 +185,7 @@ fn non_dominated_sort<'a>(trials: &[&'a Trial], directions: &[Direction]) -> Vec
 mod tests {
     use super::*;
     use rand::rngs::StdRng;
-    use rand::Rng;
+    use rand::RngExt;
     use rand::SeedableRng;
 
     fn max3() -> Vec<Direction> {

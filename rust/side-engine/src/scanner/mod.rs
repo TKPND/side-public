@@ -13,7 +13,7 @@ pub mod robustness;
 use std::collections::{BTreeMap, HashMap, HashSet};
 
 use rand::rngs::StdRng;
-use rand::Rng;
+use rand::RngExt;
 use rand::SeedableRng;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;

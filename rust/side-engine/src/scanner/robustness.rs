@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use rand::Rng;
+use rand::{Rng, RngExt};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use statrs::distribution::{ContinuousCDF, Normal};

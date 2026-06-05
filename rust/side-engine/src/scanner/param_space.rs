@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 use std::path::Path;
 
-use rand::Rng;
+use rand::{Rng, RngExt};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
