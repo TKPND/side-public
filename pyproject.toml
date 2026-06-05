@@ -2,7 +2,7 @@
 name = "side"
 version = "0.1.0"
 description = "Fee-aware FX strategy discovery — v4.4 sign-forensics analytics"
-requires-python = ">=3.12"
+requires-python = ">=3.12,<3.14"
 dependencies = [
     "arch>=8.0.0",
     "numpy>=2.0,<3.0",
@@ -38,3 +38,4 @@ torch = { index = "pytorch-cpu" }
 [[tool.uv.index]]
 name = "pytorch-cpu"
 url = "https://download.pytorch.org/whl/cpu"
+explicit = true
