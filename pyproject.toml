@@ -5,7 +5,7 @@ description = "Fee-aware FX strategy discovery — v4.4 sign-forensics analytics
 requires-python = ">=3.12,<3.14"
 dependencies = [
     "arch>=8.0.0",
-    "numpy>=2.0,<3.0",
+    "numpy>=2.4.6,<3.0",
     "pandas>=3.0.3,<4.0",
     "polars>=1.41.2,<2.0",
     "pyarrow>=24.0.0,<25.0",
@@ -26,7 +26,7 @@ dev = [
 ]
 v412-ml = [
     "accelerate>=1.13.0",
-    "huggingface-hub>=1.17.0",
+    "huggingface-hub>=1.18.0",
     "scikit-learn>=1.8,<2",
     "torch>=2.12.0",
     "transformers>=5.10.2",
